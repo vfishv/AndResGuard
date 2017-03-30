@@ -13,6 +13,8 @@
 
 原理介绍：[详见WeMobileDev公众号文章](http://mp.weixin.qq.com/s?__biz=MzAwNDY1ODY2OQ==&mid=208135658&idx=1&sn=ac9bd6b4927e9e82f9fa14e396183a8f#rd)
 
+**注意: v2签名会使得7zip压缩失效，如果你对apk大小有极致的要求，可以在signingConfigs中关闭v2签名**
+
 ## 使用Gradle
 此工具已发布在Bintray
 ```gradle
@@ -23,7 +25,7 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath 'com.tencent.mm:AndResGuard-gradle-plugin:1.1.16'
+        classpath 'com.tencent.mm:AndResGuard-gradle-plugin:1.2.0'
     }
 }
 
@@ -31,6 +33,7 @@ buildscript {
 andResGuard {
     // mappingFile = file("./resource_mapping.txt")
     mappingFile = null
+    // 当你使用v2签名的时候，7zip压缩是无法生效的。
     use7zip = true
     useSign = true
     // 打开这个开关，会keep住所有资源的原始路径，只混淆资源的名字
@@ -82,7 +85,7 @@ andResGuard {
         "resources.arsc"
     ]
      sevenzip {
-         artifact = 'com.tencent.mm:SevenZip:1.1.16'
+         artifact = 'com.tencent.mm:SevenZip:1.2.0'
          //path = "/usr/local/bin/7za"
     }
 }
@@ -115,3 +118,5 @@ res path mapping:
 ## 致谢
 
 [Apktool](https://github.com/iBotPeaches/Apktool) 使用了Apktool资源解码部分的代码
+
+[v2sig](https://github.com/shwenzhang/AndResGuard/pull/133) @jonyChina162

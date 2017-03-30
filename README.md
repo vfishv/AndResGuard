@@ -20,6 +20,9 @@ Some uses of `AndResGuard` are:
 
 `AndResGuard` is a command-line tool, it supports Windows, Linux and Mac. We suggest you to use 7zip in Linux or Mac platform for a higher compression ratio.
 
+**Note: Signature schemaV2 will make 7zip compressing invalid.
+If you really care about your APK size, please disable v2Signing in your signingConfigs**
+
 ## How to use
 ### With Gradle
 This has been released on `Bintray`
@@ -31,13 +34,14 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath 'com.tencent.mm:AndResGuard-gradle-plugin:1.1.16'
+        classpath 'com.tencent.mm:AndResGuard-gradle-plugin:1.2.0'
     }
 }
 
 andResGuard {
     // mappingFile = file("./resource_mapping.txt")
     mappingFile = null
+    // It will be invalid when you sign apk with schemaV2
     use7zip = true
     useSign = true
     // it will keep the origin path of your resources when it's true
@@ -80,7 +84,7 @@ andResGuard {
         "resources.arsc"
     ]
     sevenzip {
-        artifact = 'com.tencent.mm:SevenZip:1.1.16'
+        artifact = 'com.tencent.mm:SevenZip:1.2.0'
         //path = "/usr/local/bin/7za"
     }
 }
@@ -98,3 +102,5 @@ The outputted apk will be stored in `{App}/build/output/apk/AndResGuard_{apk_nam
 ## Thanks
 
 [Apktool](https://github.com/iBotPeaches/Apktool) Connor Tumbleson
+
+[v2sig](https://github.com/shwenzhang/AndResGuard/pull/133) @jonyChina162 
