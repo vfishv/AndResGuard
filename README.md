@@ -51,23 +51,7 @@ andResGuard {
         "R.drawable.icon",
         // for fabric
         "R.string.com.crashlytics.*",
-        // for umeng update
-        "R.string.umeng*",
-        "R.string.UM*",
-        "R.string.tb_*",
-        "R.layout.umeng*",
-        "R.layout.tb_*",
-        "R.drawable.umeng*",
-        "R.drawable.tb_*",
-        "R.anim.umeng*",
-        "R.color.umeng*",
-        "R.color.tb_*",
-        "R.style.*UM*",
-        "R.style.umeng*",
-        "R.id.umeng*",
-        // umeng share for sina
-        "R.drawable.sina*",
-        // for google-services.json
+        // for google-services
         "R.string.google_app_id",
         "R.string.gcm_defaultSenderId",
         "R.string.default_web_client_id",
@@ -97,8 +81,27 @@ The sevenzip can be set by `path` or `artifact`. Mutiple assignments are allowed
 
 The outputted apk will be stored in `{App}/build/output/apk/AndResGuard_{apk_name}/{apk_name}_signed_7zip_aligned.apk`.
 
+**You can find more whitsList configs of third-part SDK in [white_list.md](doc/white_list.md). Welcome PR your configs which is not included in white_list.md**
+
+The whiteList only works on the specsName of resources, it wouldn't keep the path of resource.
+If you wanna keeping the path, please use `mappingFile` to implement it.
+
+For example, we wanna keeping the path of icon, we need add below into our `mappingFile`.
+```
+res path mapping:
+    res/mipmap-hdpi-v4 -> res/mipmap-hdpi-v4
+    res/mipmap-mdpi-v4 -> res/mipmap-mdpi-v4
+    res/mipmap-xhdpi-v4 -> res/mipmap-xhdpi-v4
+    res/mipmap-xxhdpi-v4 -> res/mipmap-xxhdpi-v4
+    res/mipmap-xxxhdpi-v4 -> res/mipmap-xxxhdpi-v4
+```
+
 [Looking for more detail](doc/how_to_work.md)
 
+## Known Issue
+
+1. The first element of list which returned by `AssetManager#list(String path)` is empty string when you're using the APK which is compressed by 7zip. [#162](https://github.com/shwenzhang/AndResGuard/issues/162) 
+ 
 ## Thanks
 
 [Apktool](https://github.com/iBotPeaches/Apktool) Connor Tumbleson
